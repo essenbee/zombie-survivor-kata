@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZombieSurvivor.Core", "src\ZombieSurvivor.Core.csproj", "{F22FE6E3-E750-45C3-8BAC-54D801914781}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTestProject1\UnitTests.csproj", "{578A453B-2212-45F3-8B72-0EB09F6A4157}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F22FE6E3-E750-45C3-8BAC-54D801914781}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F22FE6E3-E750-45C3-8BAC-54D801914781}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F22FE6E3-E750-45C3-8BAC-54D801914781}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F22FE6E3-E750-45C3-8BAC-54D801914781}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578A453B-2212-45F3-8B72-0EB09F6A4157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578A453B-2212-45F3-8B72-0EB09F6A4157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578A453B-2212-45F3-8B72-0EB09F6A4157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578A453B-2212-45F3-8B72-0EB09F6A4157}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {697458A8-5A4A-4436-859A-89D6F976AFCC}
+	EndGlobalSection
+EndGlobal
