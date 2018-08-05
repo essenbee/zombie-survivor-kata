@@ -40,6 +40,31 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void StartOutWithNoEquipment()
+        {
+            var survivor = new Survivor("Bill");
+
+            Assert.AreEqual(0, survivor.EquipmentCarried.Count);
+        }
+
+        [TestMethod]
+        public void StartOutWithMaximumCarryingCapacity()
+        {
+            var survivor = new Survivor("Bill");
+
+            Assert.AreEqual(5, survivor.CarryingCapacity);
+        }
+
+        [TestMethod]
+        public void TakingWoundsReducesCarryingCapacity_GivenAtFullHeath()
+        {
+            var survivor = new Survivor("Bill");
+            survivor.SustainInjury(1);
+
+            Assert.AreEqual(4, survivor.CarryingCapacity);
+        }
+
+        [TestMethod]
         public void TakeOneWoundAndNotDie_GivenAtFullHeath()
         {
             var survivor = new Survivor("Bill");
