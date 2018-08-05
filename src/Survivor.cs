@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ZombieSurvivor.Core
 {
@@ -16,35 +17,45 @@ namespace ZombieSurvivor.Core
                 return MaxCarryingCapacity - Wounds;
             }
         }
-        public IList<Equipment> EquipmentCarried { get; set; }
+        public IList<Equipment> Inventory { get; private set; }
 
         public const int ActionsPerTurn = 3;
         public const int MaxWounds = 2;
-        public int MaxCarryingCapacity = 5;
+        private int MaxCarryingCapacity = 5;
 
         public Survivor(string name)
         {
             Name = name;
-            EquipmentCarried = new List<Equipment>();
+            Inventory = new List<Equipment>();
         }
 
-        public void SustainInjury(int numberOfWounds)
+        public (bool isEquipmentDropped, Equipment droppedEquipment) SustainInjury(int numberOfWounds)
         {
             Wounds = Wounds + numberOfWounds <= MaxWounds
                 ? Wounds + numberOfWounds
                 : MaxWounds;
 
-            if (EquipmentCarried.Count > CarryingCapacity)
+            Equipment droppedEquipment = null;
+            var isEquipmentDropped = false;
+
+            if (Inventory.Count > CarryingCapacity)
             {
-                // ToDo: Drop a piece of Equipment
+                var rnd = new Random(DateTime.Now.Millisecond);
+                int randomItem = rnd.Next(0, Inventory.Count - 1);
+
+                droppedEquipment = Inventory[randomItem];
+                Inventory.RemoveAt(randomItem);
+                isEquipmentDropped = true;
             }
+
+            return (isEquipmentDropped, droppedEquipment);
         }
 
         public bool PickUpEquipment(Equipment equipment)
         {
-            if (EquipmentCarried.Count < CarryingCapacity)
+            if (Inventory.Count < CarryingCapacity)
             {
-                EquipmentCarried.Add(equipment);
+                Inventory.Add(equipment);
                 return true;
             }
 

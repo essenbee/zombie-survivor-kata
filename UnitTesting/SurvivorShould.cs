@@ -44,7 +44,7 @@ namespace UnitTests
         {
             var survivor = new Survivor("Bill");
 
-            Assert.AreEqual(0, survivor.EquipmentCarried.Count);
+            Assert.AreEqual(0, survivor.Inventory.Count);
         }
 
         [TestMethod]
@@ -95,6 +95,65 @@ namespace UnitTests
 
             Assert.AreEqual(2, survivor.Wounds);
             Assert.IsFalse(survivor.IsAlive);
+        }
+
+        [TestMethod]
+        public void EquipmentIsAddedToInventory_GivenSufficientCapacity()
+        {
+            var survivor = new Survivor("Bill");
+            var baseballBat = new Equipment("Baseball bat");
+
+            var isPickedUp = survivor.PickUpEquipment(baseballBat);
+
+            Assert.IsTrue(survivor.Inventory.Contains(baseballBat));
+            Assert.IsTrue(isPickedUp);
+        }
+
+        [TestMethod]
+        public void EquipmentIsNotAddedToInventory_GivenNoCapacity()
+        {
+            var survivor = new Survivor("Bill");
+            var baseballBat = new Equipment("Baseball bat");
+            var katana = new Equipment("Katana");
+            var pistol = new Equipment("Pistol");
+            var bottledWater = new Equipment("Bottled water");
+            var fryingPan = new Equipment("Frying pan");
+            var molotov = new Equipment("Molotov");
+
+            survivor.PickUpEquipment(katana);
+            survivor.PickUpEquipment(pistol);
+            survivor.PickUpEquipment(bottledWater);
+            survivor.PickUpEquipment(fryingPan);
+            survivor.PickUpEquipment(molotov);
+
+            var isPickedUp = survivor.PickUpEquipment(baseballBat);
+
+            Assert.IsFalse(survivor.Inventory.Contains(baseballBat));
+            Assert.IsFalse(isPickedUp);
+        }
+
+        [TestMethod]
+        public void DropAnItemWhenWounded_GivenFiveItemsCarried()
+        {
+            var survivor = new Survivor("Bill");
+
+            var baseballBat = new Equipment("Baseball bat");
+            var katana = new Equipment("Katana");
+            var pistol = new Equipment("Pistol");
+            var bottledWater = new Equipment("Bottled water");
+            var fryingPan = new Equipment("Frying pan");
+
+            survivor.PickUpEquipment(baseballBat);
+            survivor.PickUpEquipment(katana);
+            survivor.PickUpEquipment(pistol);
+            survivor.PickUpEquipment(bottledWater);
+            survivor.PickUpEquipment(fryingPan);
+            
+            var result = survivor.SustainInjury(1);
+
+            Assert.IsTrue(result.isEquipmentDropped);
+            Assert.IsNotNull(result.droppedEquipment);
+            Assert.AreEqual(4, survivor.CarryingCapacity);
         }
     }
 }
