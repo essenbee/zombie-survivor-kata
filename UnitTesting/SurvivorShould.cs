@@ -110,6 +110,54 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void FirstItemPickedUpIsInHand_GivenNoItemsInInventory()
+        {
+            var survivor = new Survivor("Bill");
+            var baseballBat = new Equipment("Baseball bat");
+
+            var isPickedUp = survivor.PickUpEquipment(baseballBat);
+
+            Assert.IsTrue(survivor.Inventory.Contains(baseballBat));
+            Assert.IsTrue(baseballBat.InHand);
+        }
+
+        [TestMethod]
+        public void SecondItemPickedUpIsInHand_GivenNoItemsInInventory()
+        {
+            var survivor = new Survivor("Bill");
+            var baseballBat = new Equipment("Baseball bat");
+            var katana = new Equipment("Katana");
+
+            survivor.PickUpEquipment(baseballBat);
+            survivor.PickUpEquipment(katana);
+
+            Assert.IsTrue(survivor.Inventory.Contains(baseballBat));
+            Assert.IsTrue(survivor.Inventory.Contains(katana));
+            Assert.IsTrue(baseballBat.InHand);
+            Assert.IsTrue(katana.InHand);
+        }
+
+        [TestMethod]
+        public void ThirdItemPickedUpIsInReserve_GivenNoItemsInInventory()
+        {
+            var survivor = new Survivor("Bill");
+            var baseballBat = new Equipment("Baseball bat");
+            var katana = new Equipment("Katana");
+            var bottledWater = new Equipment("Bottled water");
+
+            survivor.PickUpEquipment(baseballBat);
+            survivor.PickUpEquipment(katana);
+            survivor.PickUpEquipment(bottledWater);
+
+            Assert.IsTrue(survivor.Inventory.Contains(baseballBat));
+            Assert.IsTrue(survivor.Inventory.Contains(katana));
+            Assert.IsTrue(survivor.Inventory.Contains(bottledWater));
+            Assert.IsTrue(baseballBat.InHand);
+            Assert.IsTrue(katana.InHand);
+            Assert.IsFalse(bottledWater.InHand);
+        }
+
+        [TestMethod]
         public void EquipmentIsNotAddedToInventory_GivenNoCapacity()
         {
             var survivor = new Survivor("Bill");

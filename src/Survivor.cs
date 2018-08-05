@@ -44,6 +44,8 @@ namespace ZombieSurvivor.Core
                 int randomItem = rnd.Next(0, Inventory.Count - 1);
 
                 droppedEquipment = Inventory[randomItem];
+                droppedEquipment.InHand = false;
+
                 Inventory.RemoveAt(randomItem);
                 isEquipmentDropped = true;
             }
@@ -55,7 +57,13 @@ namespace ZombieSurvivor.Core
         {
             if (Inventory.Count < CarryingCapacity)
             {
+                if (Inventory.Where(i => i.InHand).Count() < 2)
+                {
+                    equipment.InHand = true;
+                }
+
                 Inventory.Add(equipment);
+                
                 return true;
             }
 

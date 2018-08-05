@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ZombieSurvivor.Core
+﻿namespace ZombieSurvivor.Core
 {
     public class Equipment
     {
