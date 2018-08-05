@@ -103,7 +103,7 @@ namespace UnitTests
             var survivor = new Survivor("Bill");
             var baseballBat = new Equipment("Baseball bat");
 
-            var isPickedUp = survivor.PickUpEquipment(baseballBat);
+            var isPickedUp = survivor.PickUpItem(baseballBat);
 
             Assert.IsTrue(survivor.Inventory.Contains(baseballBat));
             Assert.IsTrue(isPickedUp);
@@ -115,7 +115,7 @@ namespace UnitTests
             var survivor = new Survivor("Bill");
             var baseballBat = new Equipment("Baseball bat");
 
-            var isPickedUp = survivor.PickUpEquipment(baseballBat);
+            var isPickedUp = survivor.PickUpItem(baseballBat);
 
             Assert.IsTrue(survivor.Inventory.Contains(baseballBat));
             Assert.IsTrue(baseballBat.InHand);
@@ -128,8 +128,8 @@ namespace UnitTests
             var baseballBat = new Equipment("Baseball bat");
             var katana = new Equipment("Katana");
 
-            survivor.PickUpEquipment(baseballBat);
-            survivor.PickUpEquipment(katana);
+            survivor.PickUpItem(baseballBat);
+            survivor.PickUpItem(katana);
 
             Assert.IsTrue(survivor.Inventory.Contains(baseballBat));
             Assert.IsTrue(survivor.Inventory.Contains(katana));
@@ -145,9 +145,9 @@ namespace UnitTests
             var katana = new Equipment("Katana");
             var bottledWater = new Equipment("Bottled water");
 
-            survivor.PickUpEquipment(baseballBat);
-            survivor.PickUpEquipment(katana);
-            survivor.PickUpEquipment(bottledWater);
+            survivor.PickUpItem(baseballBat);
+            survivor.PickUpItem(katana);
+            survivor.PickUpItem(bottledWater);
 
             Assert.IsTrue(survivor.Inventory.Contains(baseballBat));
             Assert.IsTrue(survivor.Inventory.Contains(katana));
@@ -168,13 +168,13 @@ namespace UnitTests
             var fryingPan = new Equipment("Frying pan");
             var molotov = new Equipment("Molotov");
 
-            survivor.PickUpEquipment(katana);
-            survivor.PickUpEquipment(pistol);
-            survivor.PickUpEquipment(bottledWater);
-            survivor.PickUpEquipment(fryingPan);
-            survivor.PickUpEquipment(molotov);
+            survivor.PickUpItem(katana);
+            survivor.PickUpItem(pistol);
+            survivor.PickUpItem(bottledWater);
+            survivor.PickUpItem(fryingPan);
+            survivor.PickUpItem(molotov);
 
-            var isPickedUp = survivor.PickUpEquipment(baseballBat);
+            var isPickedUp = survivor.PickUpItem(baseballBat);
 
             Assert.IsFalse(survivor.Inventory.Contains(baseballBat));
             Assert.IsFalse(isPickedUp);
@@ -191,11 +191,11 @@ namespace UnitTests
             var bottledWater = new Equipment("Bottled water");
             var fryingPan = new Equipment("Frying pan");
 
-            survivor.PickUpEquipment(baseballBat);
-            survivor.PickUpEquipment(katana);
-            survivor.PickUpEquipment(pistol);
-            survivor.PickUpEquipment(bottledWater);
-            survivor.PickUpEquipment(fryingPan);
+            survivor.PickUpItem(baseballBat);
+            survivor.PickUpItem(katana);
+            survivor.PickUpItem(pistol);
+            survivor.PickUpItem(bottledWater);
+            survivor.PickUpItem(fryingPan);
             
             var result = survivor.SustainInjury(1);
 

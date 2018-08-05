@@ -53,7 +53,7 @@ namespace ZombieSurvivor.Core
             return (isEquipmentDropped, droppedEquipment);
         }
 
-        public bool PickUpEquipment(Equipment equipment)
+        public bool PickUpItem(Equipment equipment)
         {
             if (Inventory.Count < CarryingCapacity)
             {
