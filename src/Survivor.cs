@@ -39,6 +39,8 @@ namespace ZombieSurvivor.Core
             Equipment droppedEquipment = null;
             var isEquipmentDropped = false;
 
+            // If the number of items carried exceeds the new Carrying Capacity
+            // then drop and random item ...
             if (Inventory.Count > CarryingCapacity)
             {
                 var rnd = new Random(DateTime.Now.Millisecond);

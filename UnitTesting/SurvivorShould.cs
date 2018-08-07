@@ -204,5 +204,23 @@ namespace UnitTests
             Assert.AreEqual(4, survivor.CarryingCapacity);
             Assert.IsFalse(result.droppedEquipment.InHand);
         }
+
+        [TestMethod]
+        public void NoItemDroppedWhenWounded_GivenSufficentCarryingCapacity()
+        {
+            var survivor = new Survivor("Bill");
+
+            var baseballBat = new Equipment("Baseball bat");
+            var katana = new Equipment("Katana");
+            var pistol = new Equipment("Pistol");
+
+            survivor.PickUpItem(baseballBat);
+            survivor.PickUpItem(katana);
+            survivor.PickUpItem(pistol);
+
+            var result = survivor.SustainInjury(1);
+
+            Assert.IsFalse(result.isEquipmentDropped);
+        }
     }
 }
