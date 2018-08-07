@@ -7,6 +7,8 @@ namespace ZombieSurvivor.Core
     public class Survivor
     {
         public string Name { get; }
+        public Level Level { get; set; }
+        public int Experience { get; set; }
         public int Wounds { get; private set; } = 0;
         public bool IsAlive => Wounds < MaxWounds;
         public int ActionsRemaining { get; set; } = ActionsPerTurn;
@@ -27,6 +29,8 @@ namespace ZombieSurvivor.Core
         public Survivor(string name)
         {
             Name = name;
+            Level = Level.Blue;
+            Experience = 0;
             Inventory = new List<Equipment>();
         }
 

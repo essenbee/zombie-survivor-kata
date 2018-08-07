@@ -24,6 +24,22 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void StartOutLevelBlue()
+        {
+            var survivor = new Survivor("Bill");
+
+            Assert.AreEqual(Level.Blue, survivor.Level);
+        }
+
+        [TestMethod]
+        public void StartOutWithNoExperience()
+        {
+            var survivor = new Survivor("Bill");
+
+            Assert.AreEqual(0, survivor.Experience);
+        }
+
+        [TestMethod]
         public void StartOutWithThreeActions()
         {
             var survivor = new Survivor("Bill");

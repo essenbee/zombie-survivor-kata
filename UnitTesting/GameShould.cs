@@ -45,6 +45,7 @@ namespace UnitTests
             var successfullyAddedSurvivor = game.AddSurvivorToGame(differentBill);
 
             Assert.IsFalse(successfullyAddedSurvivor);
+            Assert.AreEqual(1, game.Survivors.Count());
         }
 
         [TestMethod]
