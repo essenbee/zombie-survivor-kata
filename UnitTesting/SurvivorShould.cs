@@ -202,6 +202,7 @@ namespace UnitTests
             Assert.IsTrue(result.isEquipmentDropped);
             Assert.IsNotNull(result.droppedEquipment);
             Assert.AreEqual(4, survivor.CarryingCapacity);
+            Assert.IsFalse(result.droppedEquipment.InHand);
         }
     }
 }

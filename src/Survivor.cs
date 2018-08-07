@@ -22,6 +22,7 @@ namespace ZombieSurvivor.Core
         public const int ActionsPerTurn = 3;
         public const int MaxWounds = 2;
         private int MaxCarryingCapacity = 5;
+        private int MaxItemsInHand = 2;
 
         public Survivor(string name)
         {
@@ -41,12 +42,9 @@ namespace ZombieSurvivor.Core
             if (Inventory.Count > CarryingCapacity)
             {
                 var rnd = new Random(DateTime.Now.Millisecond);
-                int randomItem = rnd.Next(0, Inventory.Count - 1);
+                var randomItem = rnd.Next(0, Inventory.Count - 1);
 
-                droppedEquipment = Inventory[randomItem];
-                droppedEquipment.InHand = false;
-
-                Inventory.RemoveAt(randomItem);
+                droppedEquipment = DropItem(randomItem);
                 isEquipmentDropped = true;
             }
 
@@ -57,7 +55,7 @@ namespace ZombieSurvivor.Core
         {
             if (Inventory.Count < CarryingCapacity)
             {
-                if (Inventory.Where(i => i.InHand).Count() < 2)
+                if (Inventory.Where(i => i.InHand).Count() < MaxItemsInHand)
                 {
                     equipment.InHand = true;
                 }
@@ -68,6 +66,21 @@ namespace ZombieSurvivor.Core
             }
 
             return false;
+        }
+
+        public Equipment DropItem(int inventoryIndex)
+        {
+            Equipment droppedEquipment = null;
+
+            if (inventoryIndex < Inventory.Count)
+            {
+                droppedEquipment = Inventory[inventoryIndex];
+                droppedEquipment.InHand = false;
+
+                Inventory.RemoveAt(inventoryIndex);
+            }
+
+            return droppedEquipment;
         }
     }
 }
