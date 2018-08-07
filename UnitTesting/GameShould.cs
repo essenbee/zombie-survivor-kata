@@ -16,7 +16,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void StartOutWithEndOfGameNotTriggered()
+        public void NotTriggerEndOfGame_WhenGameStarts()
         {
             var game = new Game();
 
