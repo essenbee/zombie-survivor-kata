@@ -16,6 +16,14 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void StartOutWithEndOfGameNotTriggered()
+        {
+            var game = new Game();
+
+            Assert.IsFalse(game.IsEndOfGame);
+        }
+
+        [TestMethod]
         public void AddNewSurvivor_GivenNoCurrentSurvivors()
         {
             var game = new Game();
@@ -37,6 +45,41 @@ namespace UnitTests
             var successfullyAddedSurvivor = game.AddSurvivorToGame(differentBill);
 
             Assert.IsFalse(successfullyAddedSurvivor);
+        }
+
+        [TestMethod]
+        public void NotFlagEndOfGame_GivenAtLeastOneLivingSurvivor()
+        {
+            var game = new Game();
+            var bill = new Survivor("Bill");
+            var ben = new Survivor("Ben");
+            game.AddSurvivorToGame(bill);
+            game.AddSurvivorToGame(ben);
+
+            ben.SustainInjury(2);
+
+            Assert.IsTrue(bill.IsAlive);
+            Assert.IsFalse(ben.IsAlive);
+            Assert.AreEqual(2, game.Survivors.Count());
+            Assert.IsFalse(game.IsEndOfGame);
+        }
+
+        [TestMethod]
+        public void FlagEndOfGame_GivenAllSurvivorsAreDead()
+        {
+            var game = new Game();
+            var bill = new Survivor("Bill");
+            var ben = new Survivor("Ben");
+            game.AddSurvivorToGame(bill);
+            game.AddSurvivorToGame(ben);
+
+            bill.SustainInjury(2);
+            ben.SustainInjury(2);
+
+            Assert.IsFalse(bill.IsAlive);
+            Assert.IsFalse(ben.IsAlive);
+            Assert.AreEqual(2, game.Survivors.Count());
+            Assert.IsTrue(game.IsEndOfGame);
         }
     }
 }
