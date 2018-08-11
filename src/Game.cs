@@ -52,17 +52,12 @@ namespace ZombieSurvivor.Core
             {
                 newSurvivor.Notifier = _notifier;
                 Survivors.Add(newSurvivor);
-                SurvivorAddedEvent(newSurvivor);
+                Notify($"Survivor {newSurvivor.Name} was added to the game");
 
                 retVal = true;
             }
 
             return retVal;
-        }
-
-        private void SurvivorAddedEvent(Survivor survivor)
-        {
-            Notify($"Survivor {survivor.Name} was added to the game");
         }
 
         public void Notify(string eventDetail)
