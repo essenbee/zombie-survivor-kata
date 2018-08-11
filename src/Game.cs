@@ -43,6 +43,23 @@ namespace ZombieSurvivor.Core
             };
         }
 
+        public bool GameRound()
+        {
+            // Run through all of the living Survivors to execute their turns ...
+            foreach (var survivor in Survivors.Where(s => s.IsAlive))
+            {
+
+            }
+
+            if (IsEndOfGame)
+            {
+                Notify($"The game has ended, all Survivors died");
+                return false;
+            }
+
+            return true;
+        }
+
         public bool AddSurvivorToGame(Survivor newSurvivor)
         {
             var retVal = false;
