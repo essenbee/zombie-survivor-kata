@@ -66,6 +66,17 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void SetGameNotifierOnSurvivor_WhenAddingNewSurvivor()
+        {
+            var game = new Game();
+            var bill = new Survivor("Bill");
+            var successfullyAddedSurvivor = game.AddSurvivorToGame(bill);
+
+            Assert.IsNotNull(game.Survivors.FirstOrDefault(s => s.Name.Equals("Bill")));
+            Assert.IsNotNull(game.Survivors.First(s => s.Name.Equals("Bill")).Notifier);
+        }
+
+        [TestMethod]
         public void RecordEvent_OnAddingSurvivor()
         {
             var game = new Game();
