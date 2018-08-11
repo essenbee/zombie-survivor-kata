@@ -56,6 +56,15 @@ namespace ZombieSurvivor.Core
                 ? Wounds + numberOfWounds
                 : MaxWounds;
 
+            if (IsAlive)
+            {
+                Notifier.Notify($"{Name} has been wounded!");
+            }
+            else
+            {
+                Notifier.Notify($"{Name} has been killed!");
+            }
+
             Equipment droppedEquipment = null;
             var isEquipmentDropped = false;
 
@@ -83,6 +92,7 @@ namespace ZombieSurvivor.Core
                 }
 
                 Inventory.Add(equipment);
+                Notifier.Notify($"{Name} picks up a piece of equipment ({equipment.Name})");
                 
                 return true;
             }
@@ -100,6 +110,7 @@ namespace ZombieSurvivor.Core
                 droppedEquipment.InHand = false;
 
                 Inventory.RemoveAt(inventoryIndex);
+                Notifier.Notify($"{Name} drops up a piece of equipment ({droppedEquipment.Name})");
             }
 
             return droppedEquipment;
