@@ -238,5 +238,46 @@ namespace UnitTests
 
             Assert.IsFalse(result.isEquipmentDropped);
         }
+
+        [TestMethod]
+        public void GainOneExperience_GivenZombieKilled()
+        {
+            var survivor = new Survivor("Bill");
+            survivor.KilledZombie();
+
+            Assert.AreEqual(1, survivor.Experience);
+        }
+
+        [TestMethod]
+        public void BeLevelBlue_GivenSixExperience()
+        {
+            var survivor = new Survivor("Bill", 6);
+
+            Assert.AreEqual(Level.Blue, survivor.Level);
+        }
+
+        [TestMethod]
+        public void BeLevelYellow_GivenSevenExperience()
+        {
+            var survivor = new Survivor("Bill", 7);
+            
+            Assert.AreEqual(Level.Yellow, survivor.Level);
+        }
+
+        [TestMethod]
+        public void BeLevelOrangeGivenNineteenExperience()
+        {
+            var survivor = new Survivor("Bill", 19);
+
+            Assert.AreEqual(Level.Orange, survivor.Level);
+        }
+
+        [TestMethod]
+        public void BeLevelRed_GivenFortyThreeExperience()
+        {
+            var survivor = new Survivor("Bill", 43);
+
+            Assert.AreEqual(Level.Red, survivor.Level);
+        }
     }
 }

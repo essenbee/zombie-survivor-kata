@@ -7,6 +7,21 @@ namespace ZombieSurvivor.Core
     {
         public IList<Survivor> Survivors { get; set; }
         public bool IsEndOfGame => (Survivors.Count > 0 && !Survivors.Any(s => s.IsAlive));
+        public Level Level
+        {
+            get
+            {
+                if (Survivors.Any())
+                {
+                    return Survivors
+                        .Where(s => s.Experience == Survivors.Max(e => e.Experience))
+                        .First()
+                        .Level;
+                }
+
+                return Level.Blue;
+            }
+        }
 
         public Game()
         {

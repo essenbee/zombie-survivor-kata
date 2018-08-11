@@ -7,8 +7,18 @@ namespace ZombieSurvivor.Core
     public class Survivor
     {
         public string Name { get; }
-        public Level Level { get; set; }
-        public int Experience { get; set; }
+        public Level Level
+        {
+            get
+            {
+                if (Experience <= 6) return Level.Blue;
+                if (Experience <= 18) return Level.Yellow;
+                if (Experience <= 42) return Level.Orange;
+                return Level.Red;
+            }
+        }
+
+        public int Experience { get; private set; }
         public int Wounds { get; private set; } = 0;
         public bool IsAlive => Wounds < MaxWounds;
         public int ActionsRemaining { get; set; } = ActionsPerTurn;
@@ -19,6 +29,7 @@ namespace ZombieSurvivor.Core
                 return MaxCarryingCapacity - Wounds;
             }
         }
+
         public IList<Equipment> Inventory { get; private set; }
 
         public const int ActionsPerTurn = 3;
@@ -26,12 +37,16 @@ namespace ZombieSurvivor.Core
         private int MaxCarryingCapacity = 5;
         private int MaxItemsInHand = 2;
 
-        public Survivor(string name)
+        public Survivor(string name, int initialExperience = 0)
         {
             Name = name;
-            Level = Level.Blue;
-            Experience = 0;
+            Experience = initialExperience;
             Inventory = new List<Equipment>();
+        }
+
+        public void KilledZombie()
+        {
+            Experience++;
         }
 
         public (bool isEquipmentDropped, Equipment droppedEquipment) SustainInjury(int numberOfWounds)
