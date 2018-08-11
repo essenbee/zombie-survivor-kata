@@ -32,6 +32,15 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void RecordGameStartEvent_OnStartup()
+        {
+            var game = new Game();
+
+            Assert.AreEqual(1, game.GameHistory.Count());
+            Assert.IsTrue(game.GameHistory[0].EventDetail.StartsWith("New game started"));
+        }
+
+        [TestMethod]
         public void AddNewSurvivor_GivenNoCurrentSurvivors()
         {
             var game = new Game();
@@ -54,6 +63,18 @@ namespace UnitTests
 
             Assert.IsFalse(successfullyAddedSurvivor);
             Assert.AreEqual(1, game.Survivors.Count());
+        }
+
+        [TestMethod]
+        public void RecordEvent_OnAddingSurvivor()
+        {
+            var game = new Game();
+            var bill = new Survivor("Bill");
+            game.AddSurvivorToGame(bill);
+            var lastEvent = game.GameHistory.LastOrDefault();
+
+            Assert.IsNotNull(lastEvent);
+            Assert.IsTrue(lastEvent.EventDetail.StartsWith($"Survivor {bill.Name} was added to the game"));
         }
 
         [TestMethod]
