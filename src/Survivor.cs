@@ -31,6 +31,7 @@ namespace ZombieSurvivor.Core
         }
 
         public IList<Equipment> Inventory { get; private set; }
+        public GameNotifier Notifier { get; set; }
 
         public const int ActionsPerTurn = 3;
         public const int MaxWounds = 2;

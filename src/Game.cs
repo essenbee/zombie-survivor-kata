@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ZombieSurvivor.Core
 {
-    public class Game
+    public class Game : INotifiable
     {
         public IList<GameEvent> GameHistory { get; set; }
         public IList<Survivor> Survivors { get; set; }
@@ -25,16 +25,19 @@ namespace ZombieSurvivor.Core
             }
         }
 
+        private GameNotifier _notifier;
+
         public Game()
         {
             Survivors = new List<Survivor>();
+            _notifier = new GameNotifier(this);
+
             var gameStart = DateTime.Now;
 
             GameHistory = new List<GameEvent>
             {
                 new GameEvent
                 {
-                    EventDateTime = gameStart,
                     EventDetail = $"New game started at {gameStart.ToShortTimeString()}"
                 }
             };
@@ -47,6 +50,7 @@ namespace ZombieSurvivor.Core
 
             if (!Survivors.Any(s => s.Name.Equals(newSurvivorName)))
             {
+                newSurvivor.Notifier = _notifier;
                 Survivors.Add(newSurvivor);
                 SurvivorAddedEvent(newSurvivor);
 
@@ -58,6 +62,11 @@ namespace ZombieSurvivor.Core
 
         private void SurvivorAddedEvent(Survivor survivor)
         {
+            Notify($"Survivor {survivor.Name} was added to the game");
+        }
+
+        public void Notify(string eventDetail)
+        {
             if (GameHistory is null)
             {
                 GameHistory = new List<GameEvent>();
@@ -65,8 +74,7 @@ namespace ZombieSurvivor.Core
 
             GameHistory.Add(new GameEvent
             {
-                EventDateTime = DateTime.Now,
-                EventDetail = $"Survivor {survivor.Name} was added to the game"
+                EventDetail = eventDetail
             });
         }
     }
