@@ -9,6 +9,7 @@ namespace ZombieSurvivor.Core
         public IList<GameEvent> GameHistory { get; set; }
         public IList<Survivor> Survivors { get; set; }
         public bool IsEndOfGame => (Survivors.Count > 0 && !Survivors.Any(s => s.IsAlive));
+        public bool IsMissionAccomplished { get; set; }
         public Level Level
         {
             get
@@ -50,18 +51,28 @@ namespace ZombieSurvivor.Core
             _gameRound++;
             Notify($"Starting round {_gameRound}");
 
-            // Run through all of the living Survivors to execute their turns ...
+            // Player Phase: Run through all of the living Survivors to execute their turns ...
             foreach (var survivor in Survivors.Where(s => s.IsAlive))
             {
                 survivor.ProcessTurn();
                 RecordAnyGameLevelChange(gameLevelAtBeginningOfRound);
             }
 
+            // Zombie Phase: zombies attack and/or move
+
             if (IsEndOfGame)
             {
                 Notify($"The game has ended, all Survivors died. The game lasted {_gameRound} rounds");
                 return false;
             }
+
+            if (IsMissionAccomplished)
+            {
+                Notify($"The Survivors have achieved their objective! They won the game in {_gameRound} rounds");
+                return false;
+            }
+
+            // End Phase: cancel all Noise
 
             return true;
         }
