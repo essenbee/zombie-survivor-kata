@@ -162,34 +162,38 @@ namespace UnitTests
         public void RecordSurvivorLevelUpEvent()
         {
             var game = new Game();
-            var survivor = new Survivor("Bill", 6);
-            game.AddSurvivorToGame(survivor); ;
-            survivor.KilledZombie();
-            var newLevel = survivor.Level;
+            var bill = new Survivor("Bill", 6);
+            var ben = new Survivor("Ben",10);
+            game.AddSurvivorToGame(bill);
+            game.AddSurvivorToGame(ben);
+            bill.KilledZombie();
+            var newLevel = bill.Level;
 
             var lastEvent = game.GameHistory.LastOrDefault();
 
             Assert.IsNotNull(lastEvent);
-            Assert.IsTrue(lastEvent.EventDetail.StartsWith($"{survivor.Name} has leveled up  and is now {newLevel}"));
+            Assert.IsTrue(lastEvent.EventDetail.StartsWith($"{bill.Name} has leveled up  and is now {newLevel}"));
         }
 
-        //[TestMethod]
-        //public void RecordGameLevelUpEvent()
-        //{
-        //    var game = new Game();
-        //    var bill = new Survivor("Bill", 6);
-        //    var ben = new Survivor("Ben", 4);
-        //    game.AddSurvivorToGame(bill);
-        //    game.AddSurvivorToGame(ben);
+        [TestMethod]
+        public void RecordGameLevelUpEvent()
+        {
+            var game = new Game();
+            var bill = new Survivor("Bill", 6);
+            var ben = new Survivor("Ben", 4);
+            game.AddSurvivorToGame(bill);
+            game.AddSurvivorToGame(ben);
 
-        //    ben.KilledZombie();
-        //    var newGameLevel = game.Level;
+            var gameLevelBefore = game.Level;
+            bill.KilledZombie();
+            var newGameLevel = game.Level;
 
-        //    var lastEvent = game.GameHistory.LastOrDefault();
+            game.RecordAnyGameLevelChange(gameLevelBefore);
+            var lastEvent = game.GameHistory.LastOrDefault();
 
-        //    Assert.IsNotNull(lastEvent);
-        //    Assert.IsTrue(lastEvent.EventDetail.StartsWith($"The game has level is now {newGameLevel}!"));
-        //}
+            Assert.IsNotNull(lastEvent);
+            Assert.IsTrue(lastEvent.EventDetail.StartsWith($"The game level is now {newGameLevel}!"));
+        }
 
         [TestMethod]
         public void RecordSurvivorWoundedEvent()

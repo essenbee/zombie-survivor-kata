@@ -45,10 +45,12 @@ namespace ZombieSurvivor.Core
 
         public bool GameRound()
         {
+            var gameLevelAtBeginningOfRound = Level;
+
             // Run through all of the living Survivors to execute their turns ...
             foreach (var survivor in Survivors.Where(s => s.IsAlive))
             {
-
+                RecordAnyGameLevelChange(gameLevelAtBeginningOfRound);
             }
 
             if (IsEndOfGame)
@@ -58,6 +60,14 @@ namespace ZombieSurvivor.Core
             }
 
             return true;
+        }
+
+        public void RecordAnyGameLevelChange(Level gameLevelAtBeginningOfRound)
+        {
+            if (Level != gameLevelAtBeginningOfRound)
+            {
+                Notify($"The game level is now {Level}!");
+            }
         }
 
         public bool AddSurvivorToGame(Survivor newSurvivor)
