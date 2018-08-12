@@ -117,7 +117,7 @@ namespace UnitTests
         public void EquipmentIsAddedToInventory_GivenSufficientCapacity()
         {
             var survivor = new Survivor("Bill");
-            var baseballBat = new Equipment("Baseball bat");
+            var baseballBat = EquipmentFactory.GetEquipment(EquipmentType.BaseballBat);
 
             var isPickedUp = survivor.PickUpItem(baseballBat);
 
@@ -129,7 +129,7 @@ namespace UnitTests
         public void FirstItemPickedUpIsInHand_GivenNoItemsInInventory()
         {
             var survivor = new Survivor("Bill");
-            var baseballBat = new Equipment("Baseball bat");
+            var baseballBat = EquipmentFactory.GetEquipment(EquipmentType.BaseballBat);
 
             var isPickedUp = survivor.PickUpItem(baseballBat);
 
@@ -141,8 +141,8 @@ namespace UnitTests
         public void SecondItemPickedUpIsInHand_GivenNoItemsInInventory()
         {
             var survivor = new Survivor("Bill");
-            var baseballBat = new Equipment("Baseball bat");
-            var katana = new Equipment("Katana");
+            var baseballBat = EquipmentFactory.GetEquipment(EquipmentType.BaseballBat);
+            var katana = EquipmentFactory.GetEquipment(EquipmentType.Katana);
 
             survivor.PickUpItem(baseballBat);
             survivor.PickUpItem(katana);
@@ -157,9 +157,9 @@ namespace UnitTests
         public void ThirdItemPickedUpIsInReserve_GivenNoItemsInInventory()
         {
             var survivor = new Survivor("Bill");
-            var baseballBat = new Equipment("Baseball bat");
-            var katana = new Equipment("Katana");
-            var bottledWater = new Equipment("Bottled water");
+            var baseballBat = EquipmentFactory.GetEquipment(EquipmentType.BaseballBat);
+            var katana = EquipmentFactory.GetEquipment(EquipmentType.Katana);
+            var bottledWater = EquipmentFactory.GetEquipment(EquipmentType.BottledWater);
 
             survivor.PickUpItem(baseballBat);
             survivor.PickUpItem(katana);
@@ -177,12 +177,12 @@ namespace UnitTests
         public void EquipmentIsNotAddedToInventory_GivenNoCapacity()
         {
             var survivor = new Survivor("Bill");
-            var baseballBat = new Equipment("Baseball bat");
-            var katana = new Equipment("Katana");
-            var pistol = new Equipment("Pistol");
-            var bottledWater = new Equipment("Bottled water");
-            var fryingPan = new Equipment("Frying pan");
-            var molotov = new Equipment("Molotov");
+            var baseballBat = EquipmentFactory.GetEquipment(EquipmentType.BaseballBat);
+            var katana = EquipmentFactory.GetEquipment(EquipmentType.Katana);
+            var pistol = EquipmentFactory.GetEquipment(EquipmentType.Pistol);
+            var bottledWater = EquipmentFactory.GetEquipment(EquipmentType.BottledWater);
+            var fryingPan = EquipmentFactory.GetEquipment(EquipmentType.FireAxe);
+            var molotov = EquipmentFactory.GetEquipment(EquipmentType.CrowBar);
 
             survivor.PickUpItem(katana);
             survivor.PickUpItem(pistol);
@@ -201,11 +201,11 @@ namespace UnitTests
         {
             var survivor = new Survivor("Bill");
 
-            var baseballBat = new Equipment("Baseball bat");
-            var katana = new Equipment("Katana");
-            var pistol = new Equipment("Pistol");
-            var bottledWater = new Equipment("Bottled water");
-            var fryingPan = new Equipment("Frying pan");
+            var baseballBat = EquipmentFactory.GetEquipment(EquipmentType.BaseballBat);
+            var katana = EquipmentFactory.GetEquipment(EquipmentType.Katana);
+            var pistol = EquipmentFactory.GetEquipment(EquipmentType.Pistol);
+            var bottledWater = EquipmentFactory.GetEquipment(EquipmentType.BottledWater);
+            var fryingPan = EquipmentFactory.GetEquipment(EquipmentType.FireAxe);
 
             survivor.PickUpItem(baseballBat);
             survivor.PickUpItem(katana);
@@ -226,9 +226,9 @@ namespace UnitTests
         {
             var survivor = new Survivor("Bill");
 
-            var baseballBat = new Equipment("Baseball bat");
-            var katana = new Equipment("Katana");
-            var pistol = new Equipment("Pistol");
+            var baseballBat = EquipmentFactory.GetEquipment(EquipmentType.BaseballBat);
+            var katana = EquipmentFactory.GetEquipment(EquipmentType.Katana);
+            var pistol = EquipmentFactory.GetEquipment(EquipmentType.Pistol);
 
             survivor.PickUpItem(baseballBat);
             survivor.PickUpItem(katana);

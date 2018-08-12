@@ -149,7 +149,7 @@ namespace UnitTests
             var game = new Game();
             var survivor = new Survivor("Bill");
             game.AddSurvivorToGame(survivor);
-            var equipment = new Equipment("Baseball bat");
+            var equipment = EquipmentFactory.GetEquipment(EquipmentType.BaseballBat);
 
             survivor.PickUpItem(equipment);
             var lastEvent = game.GameHistory.LastOrDefault();
@@ -216,11 +216,11 @@ namespace UnitTests
             var survivor = new Survivor("Bill");
             game.AddSurvivorToGame(survivor); ;
 
-            var baseballBat = new Equipment("Baseball bat");
-            var katana = new Equipment("Katana");
-            var pistol = new Equipment("Pistol");
-            var bottledWater = new Equipment("Bottled water");
-            var fryingPan = new Equipment("Frying pan");
+            var baseballBat = EquipmentFactory.GetEquipment(EquipmentType.BaseballBat);
+            var katana = EquipmentFactory.GetEquipment(EquipmentType.Katana);
+            var pistol = EquipmentFactory.GetEquipment(EquipmentType.Pistol);
+            var bottledWater = EquipmentFactory.GetEquipment(EquipmentType.BottledWater);
+            var fryingPan = EquipmentFactory.GetEquipment(EquipmentType.FireAxe);
 
             survivor.PickUpItem(baseballBat);
             survivor.PickUpItem(katana);
