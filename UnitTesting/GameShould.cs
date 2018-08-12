@@ -124,6 +124,102 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void RecordEndOfGameEvent_GivenAllSurvivorsAreDead()
+        {
+            var game = new Game();
+            var bill = new Survivor("Bill");
+            var ben = new Survivor("Ben");
+            game.AddSurvivorToGame(bill);
+            game.AddSurvivorToGame(ben);
+
+            bill.SustainInjury(2);
+            ben.SustainInjury(2);
+
+            var continueGame = game.GameRound();
+            var lastEvent = game.GameHistory.LastOrDefault();
+
+            Assert.IsFalse(continueGame);
+            Assert.IsNotNull(lastEvent);
+            Assert.IsTrue(lastEvent.EventDetail.StartsWith("The game has ended, all Survivors died"));
+        }
+
+        [TestMethod]
+        public void RecordEquipmentPickedUpBySurvivorEvent()
+        {
+            var game = new Game();
+            var survivor = new Survivor("Bill");
+            game.AddSurvivorToGame(survivor);
+            var equipment = new Equipment("Baseball bat");
+
+            survivor.PickUpItem(equipment);
+            var lastEvent = game.GameHistory.LastOrDefault();
+
+            Assert.IsNotNull(lastEvent);
+            Assert.IsTrue(lastEvent.EventDetail.StartsWith($"{survivor.Name} picks up a piece of equipment ({equipment.Name})"));
+        }
+
+        [TestMethod]
+        public void RecordSurvivorLevelUpEvent()
+        {
+            var game = new Game();
+            var survivor = new Survivor("Bill", 6);
+            game.AddSurvivorToGame(survivor); ;
+            survivor.KilledZombie();
+            var newLevel = survivor.Level;
+
+            var lastEvent = game.GameHistory.LastOrDefault();
+
+            Assert.IsNotNull(lastEvent);
+            Assert.IsTrue(lastEvent.EventDetail.StartsWith($"{survivor.Name} has leveled up  and is now {newLevel}"));
+        }
+
+        //[TestMethod]
+        //public void RecordGameLevelUpEvent()
+        //{
+        //    var game = new Game();
+        //    var bill = new Survivor("Bill", 6);
+        //    var ben = new Survivor("Ben", 4);
+        //    game.AddSurvivorToGame(bill);
+        //    game.AddSurvivorToGame(ben);
+
+        //    ben.KilledZombie();
+        //    var newGameLevel = game.Level;
+
+        //    var lastEvent = game.GameHistory.LastOrDefault();
+
+        //    Assert.IsNotNull(lastEvent);
+        //    Assert.IsTrue(lastEvent.EventDetail.StartsWith($"The game has level is now {newGameLevel}!"));
+        //}
+
+        [TestMethod]
+        public void RecordSurvivorWoundedEvent()
+        {
+            var game = new Game();
+            var survivor = new Survivor("Bill");
+            game.AddSurvivorToGame(survivor);;
+            survivor.SustainInjury(1);
+
+            var lastEvent = game.GameHistory.LastOrDefault();
+
+            Assert.IsNotNull(lastEvent);
+            Assert.IsTrue(lastEvent.EventDetail.StartsWith($"{survivor.Name} has been wounded!"));
+        }
+
+        [TestMethod]
+        public void RecordSurvivorKillededEvent()
+        {
+            var game = new Game();
+            var survivor = new Survivor("Bill");
+            game.AddSurvivorToGame(survivor); ;
+            survivor.SustainInjury(2);
+
+            var lastEvent = game.GameHistory.LastOrDefault();
+
+            Assert.IsNotNull(lastEvent);
+            Assert.IsTrue(lastEvent.EventDetail.StartsWith($"{survivor.Name} has been killed!"));
+        }
+
+        [TestMethod]
         public void BeLevelBlue_GivenAllSurvivorsLevelBlue()
         {
             var game = new Game();

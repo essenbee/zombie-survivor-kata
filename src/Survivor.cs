@@ -47,7 +47,14 @@ namespace ZombieSurvivor.Core
 
         public void KilledZombie()
         {
+            var levelBefore = Level;
             Experience++;
+            var levelAfter = Level;
+
+            if (levelAfter != levelBefore)
+            {
+                if (Notifier != null) Notifier.Notify($"{Name} has leveled up  and is now {Level}");
+            }
         }
 
         public (bool isEquipmentDropped, Equipment droppedEquipment) SustainInjury(int numberOfWounds)
