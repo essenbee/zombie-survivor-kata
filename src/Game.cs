@@ -26,6 +26,7 @@ namespace ZombieSurvivor.Core
         }
 
         private GameNotifier _notifier;
+        private int _gameRound = 0;
 
         public Game()
         {
@@ -46,6 +47,8 @@ namespace ZombieSurvivor.Core
         public bool GameRound()
         {
             var gameLevelAtBeginningOfRound = Level;
+            _gameRound++;
+            Notify($"Starting round {_gameRound}");
 
             // Run through all of the living Survivors to execute their turns ...
             foreach (var survivor in Survivors.Where(s => s.IsAlive))
@@ -56,7 +59,7 @@ namespace ZombieSurvivor.Core
 
             if (IsEndOfGame)
             {
-                Notify($"The game has ended, all Survivors died");
+                Notify($"The game has ended, all Survivors died. The game lasted {_gameRound} rounds");
                 return false;
             }
 
