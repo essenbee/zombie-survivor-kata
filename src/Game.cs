@@ -50,6 +50,7 @@ namespace ZombieSurvivor.Core
             // Run through all of the living Survivors to execute their turns ...
             foreach (var survivor in Survivors.Where(s => s.IsAlive))
             {
+                survivor.ProcessTurn();
                 RecordAnyGameLevelChange(gameLevelAtBeginningOfRound);
             }
 

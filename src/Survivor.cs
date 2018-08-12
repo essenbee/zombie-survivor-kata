@@ -45,6 +45,11 @@ namespace ZombieSurvivor.Core
             Inventory = new List<Equipment>();
         }
 
+        public void ProcessTurn()
+        {
+
+        }
+
         public void KilledZombie()
         {
             var levelBefore = Level;
