@@ -210,6 +210,33 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void RecordSurvivorDroppedEquipmentEvent()
+        {
+            var game = new Game();
+            var survivor = new Survivor("Bill");
+            game.AddSurvivorToGame(survivor); ;
+
+            var baseballBat = new Equipment("Baseball bat");
+            var katana = new Equipment("Katana");
+            var pistol = new Equipment("Pistol");
+            var bottledWater = new Equipment("Bottled water");
+            var fryingPan = new Equipment("Frying pan");
+
+            survivor.PickUpItem(baseballBat);
+            survivor.PickUpItem(katana);
+            survivor.PickUpItem(pistol);
+            survivor.PickUpItem(bottledWater);
+            survivor.PickUpItem(fryingPan);
+
+            var result = survivor.SustainInjury(1);
+
+            var lastEvent = game.GameHistory.LastOrDefault();
+
+            Assert.IsNotNull(lastEvent);
+            Assert.IsTrue(lastEvent.EventDetail.StartsWith($"{survivor.Name} drops a piece of equipment"));
+        }
+
+        [TestMethod]
         public void RecordSurvivorKillededEvent()
         {
             var game = new Game();

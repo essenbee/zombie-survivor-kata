@@ -122,7 +122,7 @@ namespace ZombieSurvivor.Core
                 droppedEquipment.InHand = false;
 
                 Inventory.RemoveAt(inventoryIndex);
-                if (Notifier != null) Notifier.Notify($"{Name} drops up a piece of equipment ({droppedEquipment.Name})");
+                if (Notifier != null) Notifier.Notify($"{Name} drops a piece of equipment ({droppedEquipment.Name})");
             }
 
             return droppedEquipment;
