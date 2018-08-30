@@ -24,7 +24,7 @@ namespace ZombieSurvivor.Core
         public int ActionsRemaining { get; set; } = ActionsPerTurn;
         public int CarryingCapacity => MaxCarryingCapacity - Wounds;
 
-        public IList<Equipment> Inventory { get; private set; }
+        public IList<Equipment> Inventory { get; }
         public GameNotifier Notifier { get; set; }
 
         public const int ActionsPerTurn = 3;
@@ -62,14 +62,9 @@ namespace ZombieSurvivor.Core
                 ? Wounds + numberOfWounds
                 : MaxWounds;
 
-            if (IsAlive)
-            {
-                Notifier?.Notify($"{Name} has been wounded!");
-            }
-            else
-            {
-                Notifier?.Notify($"{Name} has been killed!");
-            }
+            Notifier?.Notify(IsAlive 
+                ? $"{Name} has been wounded!" 
+                : $"{Name} has been killed!");
 
             Equipment droppedEquipment = null;
             var isEquipmentDropped = false;
