@@ -4,7 +4,7 @@
     {
         public string Name { get; }
         public bool InHand { get; set; }
-        public bool CanKillZomies { get; }
+        public bool CanKillZombies { get; }
         public bool CanOpenDoors { get; }
         public bool IsNoisyWeapon { get; }
         public bool IsNoisyOpeningDoors { get; }
@@ -17,7 +17,7 @@
             int range = 0, int dice = 0, int accuracy = 0, int damage = 0)
         {
             Name = name;
-            CanKillZomies = killsZombies;
+            CanKillZombies = killsZombies;
             CanOpenDoors = opensDoors;
             IsNoisyWeapon = noisyWeapon;
             IsNoisyOpeningDoors = noisyOpeningDoors;

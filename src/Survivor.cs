@@ -22,13 +22,7 @@ namespace ZombieSurvivor.Core
         public int Wounds { get; private set; } = 0;
         public bool IsAlive => Wounds < MaxWounds;
         public int ActionsRemaining { get; set; } = ActionsPerTurn;
-        public int CarryingCapacity
-        {
-            get
-            {
-                return MaxCarryingCapacity - Wounds;
-            }
-        }
+        public int CarryingCapacity => MaxCarryingCapacity - Wounds;
 
         public IList<Equipment> Inventory { get; private set; }
         public GameNotifier Notifier { get; set; }
@@ -58,7 +52,7 @@ namespace ZombieSurvivor.Core
 
             if (levelAfter != levelBefore)
             {
-                if (Notifier != null) Notifier.Notify($"{Name} has leveled up  and is now {Level}");
+                Notifier?.Notify($"{Name} has leveled up  and is now {Level}");
             }
         }
 
@@ -70,11 +64,11 @@ namespace ZombieSurvivor.Core
 
             if (IsAlive)
             {
-                if (Notifier != null) Notifier.Notify($"{Name} has been wounded!");
+                Notifier?.Notify($"{Name} has been wounded!");
             }
             else
             {
-                if (Notifier != null) Notifier.Notify($"{Name} has been killed!");
+                Notifier?.Notify($"{Name} has been killed!");
             }
 
             Equipment droppedEquipment = null;
@@ -98,14 +92,14 @@ namespace ZombieSurvivor.Core
         {
             if (Inventory.Count < CarryingCapacity)
             {
-                if (Inventory.Where(i => i.InHand).Count() < MaxItemsInHand)
+                if (Inventory.Count(i => i.InHand) < MaxItemsInHand)
                 {
                     equipment.InHand = true;
                 }
 
                 Inventory.Add(equipment);
-                if (Notifier != null) Notifier.Notify($"{Name} picks up a piece of equipment ({equipment.Name})");
-                
+                Notifier?.Notify($"{Name} picks up a piece of equipment ({equipment.Name})");
+
                 return true;
             }
 
@@ -122,7 +116,7 @@ namespace ZombieSurvivor.Core
                 droppedEquipment.InHand = false;
 
                 Inventory.RemoveAt(inventoryIndex);
-                if (Notifier != null) Notifier.Notify($"{Name} drops a piece of equipment ({droppedEquipment.Name})");
+                Notifier?.Notify($"{Name} drops a piece of equipment ({droppedEquipment.Name})");
             }
 
             return droppedEquipment;

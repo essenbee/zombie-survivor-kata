@@ -17,8 +17,7 @@ namespace ZombieSurvivor.Core
                 if (Survivors.Any())
                 {
                     return Survivors
-                        .Where(s => s.Experience == Survivors.Max(e => e.Experience))
-                        .First()
+                        .First(s => s.Experience == Survivors.Max(e => e.Experience))
                         .Level;
                 }
 
@@ -26,7 +25,7 @@ namespace ZombieSurvivor.Core
             }
         }
 
-        private GameNotifier _notifier;
+        private readonly GameNotifier _notifier;
         private int _gameRound = 0;
 
         public Game()
